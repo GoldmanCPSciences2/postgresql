@@ -20,6 +20,19 @@ app.get("/student", function (req, res, next) {
   );
 });
 
+app.get("/student/:id", function (req, res, next) {
+  const studentid = parseInt(req.params.id, 10);
+  db.query(
+    `SELECT * FROM student WHERE student_id = ${studentid}`,
+    (error, results) => {
+      if (error) {
+        console.log(error.stack);
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+});
+
 app.listen(PORT);
 
 module.exports = app;
